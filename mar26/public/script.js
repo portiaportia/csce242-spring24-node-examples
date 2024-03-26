@@ -36,7 +36,40 @@ const showRecipes = async() => {
 };
 
 const displayDetails = (recipe) => {
-    console.log(recipe);
+    openDialog("recipe-details");
+
+    const recipeDetails = document.getElementById("recipe-details");
+    recipeDetails.innerHTML = "";
+
+    const h3 = document.createElement("h3");
+    h3.innerHTML = recipe.name;
+    recipeDetails.append(h3);
+
+    const p = document.createElement("p");
+    p.innerHTML = recipe.description;
+    recipeDetails.append(p);
+
+    const ul = document.createElement("ul");
+    recipeDetails.append(ul);
+
+    recipe.ingredients.forEach((indgredient)=> {
+        const li = document.createElement("li");
+        li.innerHTML = indgredient;
+        ul.append(li);
+    });
+
+    const spoon = document.createElement("section");
+    spoon.classList.add("spoon");
+    recipeDetails.append(spoon);
+
 };
+
+const openDialog = (id) => {
+    document.getElementById("dialog").style.display = "block";
+    document.querySelectorAll("#dialog-details > *").forEach((item)=> {
+        item.classList.add("hidden");
+    });
+    document.getElementById(id).classList.remove("hidden");
+}
 
 showRecipes();
