@@ -87,8 +87,25 @@ app.get("/api/recipes", (req, res)=>{
 });
 
 app.post("/api/recipes", upload.single("img"), (req, res) => {
-  console.log("made it in the post");
+  const result = validateRecipe(req.body);
+
+  if(result.error){
+    res.status(400).send(result.error.details[0].message);
+  }
+
+  console.log("Made it past the validator");
 });
+
+const validateRecipe = (recipe) => {
+  const schema = Joi.object({
+    _id:Joi.allow(""),
+    ingredients:Joi.allow(""),
+    name:Joi.string().min(3).required(),
+    description:Joi.string().min(3).required()
+  });
+
+  return schema.validate(recipe);
+};
 
 app.listen(3000, ()=> {
     console.log("I'm listening");
