@@ -74,6 +74,7 @@ const openDialog = (id) => {
 
 const showRecipeForm = (e) => {
     e.preventDefault();
+    resetForm();
     openDialog("add-recipe-form");
 }
 
@@ -85,6 +86,26 @@ const addIngredient = (e) => {
     section.append(input);
 }
 
+const resetForm = () => {
+    const form = document.getElementById("add-recipe-form");
+    form.reset();
+    document.getElementById("ingredient-boxes").innerHTML = "";
+    document.getElementById("img-prev").src="";
+};
+
+
 showRecipes();
 document.getElementById("add-link").onclick = showRecipeForm;
 document.getElementById("add-ingredient").onclick = addIngredient;
+
+document.getElementById("img").onchange = (e) => {
+    const prev = document.getElementById("img-prev");
+
+    //they didn't pick an image
+    if(!e.target.files.length){
+        prev.src = "";
+        return;
+    }
+
+    prev.src = URL.createObjectURL(e.target.files.item(0));
+}
