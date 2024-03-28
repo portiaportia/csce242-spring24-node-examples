@@ -93,7 +93,19 @@ app.post("/api/recipes", upload.single("img"), (req, res) => {
     res.status(400).send(result.error.details[0].message);
   }
 
-  console.log("Made it past the validator");
+    const recipe = {
+      _id : recipes.length + 1,
+      name: req.body.name,
+      description:req.body.description,
+      ingredients:req.body.ingredients.split(",")
+    }
+
+    if(req.file){
+      recipe.img = "images/" + req.file.filename;
+    }
+
+    recipes.push(recipe);
+    res.send(recipes);
 });
 
 const validateRecipe = (recipe) => {

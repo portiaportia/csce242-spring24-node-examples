@@ -9,6 +9,7 @@ const getRecipes = async() => {
 const showRecipes = async() => {
     const recipes = await getRecipes();
     const recipesDiv = document.getElementById("recipe-list");
+    recipesDiv.innerHTML = "";
 
     recipes.forEach((recipe)=>{
         const section = document.createElement("section");
