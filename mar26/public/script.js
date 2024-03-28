@@ -93,8 +93,29 @@ const resetForm = () => {
     document.getElementById("img-prev").src="";
 };
 
+const addRecipe = async(e)=> {
+    e.preventDefault();
+    const form = document.getElementById("add-recipe-form");
+    const formData = new FormData(form);
+    formData.append("ingredients", getIngredients());
+    console.log(...formData);
+};
 
+const getIngredients = () => {
+    const inputs = document.querySelectorAll("#ingredient-boxes input");
+    const ingredients = [];
+
+    inputs.forEach((input)=>{
+        ingredients.push(input.value);
+    });
+
+    return ingredients;
+}
+
+
+//on load
 showRecipes();
+document.getElementById("add-recipe-form").onsubmit = addRecipe;
 document.getElementById("add-link").onclick = showRecipeForm;
 document.getElementById("add-ingredient").onclick = addIngredient;
 
