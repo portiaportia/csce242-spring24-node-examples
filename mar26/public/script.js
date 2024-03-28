@@ -99,6 +99,21 @@ const addRecipe = async(e)=> {
     const formData = new FormData(form);
     formData.append("ingredients", getIngredients());
     console.log(...formData);
+
+    const response = await fetch("/api/recipes", {
+        method:"POST",
+        body:formData
+    });
+
+    if(response.status != 200){
+        console.log("error posting data");
+    }
+
+    await response.json();
+    resetForm();
+    document.getElementById("dialog").style.display = "none";
+    showRecipes();
+
 };
 
 const getIngredients = () => {

@@ -1,30 +1,23 @@
 const express = require("express");
 const app = express();
-
-//joi is for server side validation
-const joi = require("joi");
-
-//for our file uploads
+const Joi = require("joi");
 const multer = require("multer");
-
 app.use(express.static("public"));
 app.use("/uploads", express.static("uploads"));
 app.use(express.json());
-
-//for cross domain
 const cors = require("cors");
 app.use(cors());
 
 const storage = multer.diskStorage({
-  destination:(req,res, cb)=>{
+  destination: (req, file, cb) => {
     cb(null, "./public/images/");
   },
-  filename:(req,res, cb)=>{
+  filename: (req, file, cb) => {
     cb(null, file.originalname);
-  }
+  },
 });
 
-const upload = multer({storage:storage});
+const upload = multer({ storage: storage });
 
 //my recipe list
 let recipes = [
@@ -93,9 +86,9 @@ app.get("/api/recipes", (req, res)=>{
     res.send(recipes);
 });
 
-app.post("/api/recipes", upload.single("img", (req,res)=>{
+app.post("/api/recipes", upload.single("img"), (req, res) => {
   console.log("made it in the post");
-}));
+});
 
 app.listen(3000, ()=> {
     console.log("I'm listening");
