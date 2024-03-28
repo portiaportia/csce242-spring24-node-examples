@@ -15,6 +15,17 @@ app.use(express.json());
 const cors = require("cors");
 app.use(cors());
 
+const storage = multer.diskStorage({
+  destination:(req,res, cb)=>{
+    cb(null, "./public/images/");
+  },
+  filename:(req,res, cb)=>{
+    cb(null, file.originalname);
+  }
+});
+
+const upload = multer({storage:storage});
+
 //my recipe list
 let recipes = [
     {
@@ -81,6 +92,10 @@ app.get("/", (req, res)=>{
 app.get("/api/recipes", (req, res)=>{
     res.send(recipes);
 });
+
+app.post("/api/recipes", upload.single("img", (req,res)=>{
+  console.log("made it in the post");
+}));
 
 app.listen(3000, ()=> {
     console.log("I'm listening");
