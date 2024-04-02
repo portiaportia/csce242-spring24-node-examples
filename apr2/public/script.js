@@ -71,10 +71,29 @@ const displayDetails = (recipe) => {
   spoon.classList.add("spoon");
   recipeDetails.append(spoon);
 
-  //eLink.onclick = showRecipeForm;
+  eLink.onclick = showRecipeForm;
   //dLink.onclick = deleteRecipe.bind(this, recipe);
 
   populateEditForm(recipe);
+};
+
+const populateEditForm = (recipe) =>{
+  const form = document.getElementById("recipe-form");
+  form._id.value = recipe._id;
+  form.name.value = recipe.name;
+  form.description.value = recipe.description;
+  document.getElementById("img-prev").src = recipe.img;
+  populateIngredients(recipe.ingredients);
+};
+
+const populateIngredients = (ingredients) => {
+  const section = document.getElementById("ingredient-boxes");
+  ingredients.forEach((ingredient)=>{
+    const input = document.createElement("input");
+    input.type = "text";
+    input.value = ingredient;
+    section.append(input);
+  });
 };
 
 const addEditRecipe = async (e) => {
