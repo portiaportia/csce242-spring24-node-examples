@@ -107,6 +107,31 @@ app.post("/api/recipes", upload.single("img"), (req, res) => {
   res.send(recipes);
 });
 
+app.put("/api/recipes/:id", upload.single("img"), (req, res) => {
+  const recipe = recipes.find((r)=>r._id === parseInt(req.params.id));
+
+  if(!recipe){
+    res.send(404).send("Recipe with given id was not found");
+  }
+
+  const result = validateRecipe(req.body);
+
+  if (result.error) {
+    res.status(400).send(result.error.details[0].message);
+    return;
+  }
+
+  recipe.name = req.body.name;
+  recipe.description = req.body.description;
+  recipe.ingredients = req.body.ingredients.split(",");
+
+  if (req.file) {
+    recipe.img = "images/" + req.file.filename;
+  }
+
+  res.send(recipes);
+});
+
 const validateRecipe = (recipe) => {
   const schema = Joi.object({
     _id: Joi.allow(""),
@@ -117,6 +142,8 @@ const validateRecipe = (recipe) => {
 
   return schema.validate(recipe);
 };
+
+
 
 app.listen(3000, () => {
   console.log("I'm listening");
