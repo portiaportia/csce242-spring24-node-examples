@@ -72,7 +72,7 @@ const displayDetails = (recipe) => {
   recipeDetails.append(spoon);
 
   eLink.onclick = showRecipeForm;
-  //dLink.onclick = deleteRecipe.bind(this, recipe);
+  dLink.onclick = deleteRecipe.bind(this, recipe);
 
   populateEditForm(recipe);
 };
@@ -114,6 +114,10 @@ const addEditRecipe = async (e) => {
     });
   } else {
     //put request
+    response = await fetch(`/api/recipes/${form._id.value}`, {
+      method: "PUT",
+      body: formData,
+    });
   }
 
   //successfully got data from server
@@ -125,6 +129,25 @@ const addEditRecipe = async (e) => {
   resetForm();
   document.getElementById("dialog").style.display = "none";
   showRecipes();
+};
+
+const deleteRecipe = async(recipe)=> {
+  let response = await fetch(`/api/recipes/${recipe._id}`, {
+    method:"DELETE",
+    headers:{
+      "Content-Type":"application/json;charset=utf-8"
+    }
+  });
+
+  if(response.status != 200){
+    console.log("Error deleting");
+    return;
+  }
+
+  let result = await response.json();
+  resetForm();
+  showRecipes();
+  document.getElementById("dialog").style.display = "none";
 };
 
 const getIngredients = () => {
