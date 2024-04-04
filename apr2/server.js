@@ -132,6 +132,21 @@ app.put("/api/recipes/:id", upload.single("img"), (req, res) => {
   res.send(recipes);
 });
 
+app.delete("/api/recipes/:id", (req,res)=>{
+  const recipe = recipes.find((r)=>r._id === parseInt(req.params.id));
+
+  if(!recipe){
+    res.status(404).send("The recipe with the given id was not found");
+    return;
+  }
+
+  const index = recipes.indexOf(recipe);
+  recipes.splice(index, 1);
+  res.send(recipe);
+});
+
+
+
 const validateRecipe = (recipe) => {
   const schema = Joi.object({
     _id: Joi.allow(""),
