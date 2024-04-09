@@ -54,8 +54,26 @@ app.get("/api/recipes/:id", async (req, res) => {
 });
 
 
-app.post("/api/recipes", upload.single("img"), (req, res) => {
-  
+app.post("/api/recipes", upload.single("img"), async (req, res) => {
+  const result = validateRecipe(req.body);
+
+  if(result.error){
+    res.status(400).send(result.error.details[0].message);
+    return;
+  }
+
+  const recipe = new Recipe({
+    name:req.body.name,
+    description:req.body.description,
+    ingredients:req.body.ingredients.split(",")
+  });
+
+  if(req.file){
+    recipe.img = "images/" + req.file.filename;
+  }
+
+  const saveResult = await recipe.save();
+  res.send(recipe);
 });
 
 /*
