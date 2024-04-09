@@ -76,11 +76,33 @@ app.post("/api/recipes", upload.single("img"), async (req, res) => {
   res.send(recipe);
 });
 
-/*
-app.put("/api/recipes/:id", upload.single("img"), (req, res) => {
-  
+
+app.put("/api/recipes/:id", upload.single("img"), async (req, res) => {
+  const result = validateRecipe(req.body);
+
+  if(result.error){
+    res.status(400).send(result.error.details[0].message);
+    return;
+  }
+
+  let fieldsToUpdate = {
+    name:req.body.name,
+    description:req.body.description,
+    ingredients:req.body.ingredients.split(",")
+  };
+
+  if(req.file){
+    fieldsToUpdate.img = "images/" + req.file.filename;
+  }
+
+  const id = req.params.id;
+
+  const updateResult = await Recipe.updateOne({_id:id},fieldsToUpdate);
+  res.send(updateResult);
 });
 
+
+/*
 app.delete("/api/recipes/:id", (req, res) => {
   
 });
