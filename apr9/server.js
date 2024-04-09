@@ -19,32 +19,46 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage: storage });
-/*
+
 mongoose
-  .connect("")
+  .connect("mongodb+srv://portiaportia:E8AUfgE3717JFt0y@data.ng58qmq.mongodb.net/")
   .then(() => {
     console.log("connected to mongodb");
   })
   .catch((error) => {
     console.log("couldn't connect to mongodb", error);
   });
-*/
+
+const recipeSchema = new mongoose.Schema({
+  name: String,
+  description:String,
+  ingredients:[String],
+  img: String
+});
+
+const Recipe = mongoose.model("Recipe", recipeSchema);
+
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
-/*
-app.get("/api/recipes", (req, res) => {
-  
+
+app.get("/api/recipes", async (req, res) => {
+  const recipes = await Recipe.find();
+  res.send(recipes);
 });
 
-app.get("/api/recipes/:id", (req, res) => {
-  getRecipe(req.params.id, res);
+app.get("/api/recipes/:id", async (req, res) => {
+  const id = req.params.id;
+  const recipe = await Recipe.findOne({_id:id});
+  res.send(recipe);
 });
+
 
 app.post("/api/recipes", upload.single("img"), (req, res) => {
   
 });
 
+/*
 app.put("/api/recipes/:id", upload.single("img"), (req, res) => {
   
 });
