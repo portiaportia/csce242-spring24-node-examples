@@ -101,12 +101,11 @@ app.put("/api/recipes/:id", upload.single("img"), async (req, res) => {
   res.send(updateResult);
 });
 
-
-/*
-app.delete("/api/recipes/:id", (req, res) => {
-  
+app.delete("/api/recipes/:id", async (req, res) => {
+  const recipe = await Recipe.findByIdAndDelete(req.params.id);
+  res.send(recipe);
 });
-*/
+
 function validateRecipe(recipe) {
   const schema = Joi.object({
     name: Joi.string().min(3).required(),
