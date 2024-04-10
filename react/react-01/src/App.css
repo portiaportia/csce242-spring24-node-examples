@@ -1,0 +1,231 @@
+:root {
+  --bg-color: #f1f2e9;
+  --primary-color: #5d878c;
+  --secondary-color: #a4bfb8;
+  --accent-bold: #d98282;
+  --accent-subtle: #f2f0d5;
+  --ball-top: 0;
+}
+
+body {
+  font-family: arial;
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+}
+
+#content {
+  margin: auto;
+  width: 95%;
+}
+
+.container {
+  padding: 5px;
+  margin: 5px;
+}
+
+.gallery h3 {
+  color: var(--primary-color);
+}
+
+.gallery p {
+  color: var(--primary-color);
+}
+
+img {
+  max-width: 90%;
+}
+
+.main-image {
+  display: block;
+}
+
+#plans:first-child {
+  background: var(--accent-subtle);
+}
+
+#plans:first-child strong,
+#plans:first-child p {
+  color: var(--bg-color);
+  font-size: 1.1em;
+}
+
+.feature-image {
+  background-color: #d98282;
+}
+
+#plans section h3 {
+  padding-top: 50px;
+  text-align: center;
+}
+
+.floor-plans img {
+  display: block;
+  margin: auto;
+}
+
+/* Toggle nav */
+#toggle-nav:hover {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+#navitems {
+  padding-left: 0;
+}
+
+#navitems li {
+  list-style-type: none;
+  margin-bottom: 5px;
+}
+
+#navitems a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* Naviation */
+
+#main-nav ul {
+  padding-left: 0;
+}
+
+#main-nav li {
+  list-style-type: none;
+  padding: 5px;
+  background: var(--accent-bold);
+  text-align: center;
+  border: 1px solid var(--secondary-color);
+}
+
+#main-nav a {
+  text-decoration: none;
+  color: white;
+}
+
+/* Typography */
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  color: var(--accent-bold);
+}
+
+/* forms */
+input {
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  font-size: 16px;
+  display: block;
+  margin: auto;
+}
+
+#link-container {
+  text-align: center;
+}
+
+a {
+  color: var(--primary-color);
+}
+
+h4 {
+  margin-top: 15px;
+}
+
+footer p {
+  text-align: center;
+}
+
+#dialog-content img {
+  display: block;
+  max-width: 80%;
+}
+
+.hidden {
+  display: none;
+}
+
+@media screen and (min-width: 600px) {
+  #content {
+    width: 80%;
+  }
+
+  .columns {
+    display: flex;
+    align-items: flex-start;
+    align-items: stretch;
+  }
+
+  .floor-plans section h4 {
+    text-align: center;
+  }
+
+  .info {
+    padding-left: 10px;
+  }
+
+  #main-nav li {
+    flex: 1;
+  }
+
+  .gallery {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+  }
+
+  .navbar ul li {
+    text-align: center;
+  }
+
+  #toggle-nav {
+    display: none;
+  }
+
+  #navitems.hidden {
+    display: block;
+  }
+
+  #navitems {
+    text-align: center;
+  }
+
+  #navitems li {
+    display: inline;
+  }
+
+  #navitems li:not(:last-child)::after {
+    content: " | ";
+  }
+
+  .flex1 {
+    flex: 1;
+  }
+
+  #trees section {
+    width: 20%;
+  }
+
+  #trees img {
+    max-width: 80%;
+  }
+
+  #dialog-content section {
+    padding-right: 20px;
+    flex: 7;
+  }
+
+  #dialog-content img {
+    flex: 3;
+    padding-top: 50px;
+    max-width: 30%;
+    padding-bottom: 20px;
+  }
+}
