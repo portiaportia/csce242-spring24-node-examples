@@ -1,15 +1,25 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
-import Header from "./Header.js";
-import Gallery from "./Gallery.js";
-import Footer from "./Footer.js";
-import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./pages/Layout";
+import Home from "./pages/Home";
+import Blogs from "./pages/Blogs";
+import Contact from "./pages/Contact";
+import NoPage from "./pages/NoPage";
 
-const header = ReactDOM.createRoot(document.getElementById("header"));
-header.render(<Header />);
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="blogs" element={<Blogs />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-const gallery = ReactDOM.createRoot(document.getElementById("gallery"));
-gallery.render(<Gallery />);
-
-const footer = ReactDOM.createRoot(document.getElementById("footer"));
-footer.render(<Footer />);
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
