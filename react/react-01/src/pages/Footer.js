@@ -4,10 +4,7 @@ const Footer = () => {
   return (
     <footer id="main-footer">
       <p>
-        All content provided by:
-        <a href="https://www.architecturaldesigns.com/house-plans/">
-          Architectural Designs
-        </a>
+        Goodybe
       </p>
     </footer>
   );
