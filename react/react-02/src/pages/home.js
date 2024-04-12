@@ -12,7 +12,7 @@ const Home = () => {
       );
       setHousePlans(response.data);
     })();
-  });
+  }, []);
 
   return (
     <div>
