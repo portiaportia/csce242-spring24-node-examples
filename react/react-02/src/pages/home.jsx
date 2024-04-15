@@ -5,6 +5,7 @@ import HousePlan from "../components/houseplan";
 const Home = () => {
   const [housePlans, setHousePlans] = useState([]);
 
+  //useEffect “delays” a piece of code from running until that render is reflected on the screen.
   useEffect(() => {
     (async () => {
       const response = await axios.get(
